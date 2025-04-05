@@ -29,8 +29,8 @@ png(filename = "GadeqU1.png", width = 1200, height = 1200, res = 300)
 ggplot(data, aes(x = X, y = Y)) +
   geom_point(color = "blue", size = 1) +
   geom_abline(slope = 1, intercept = 0, color = "red", size = 1.25) + # Trait plein sans linetype
-  labs(x = "Vraies valeurs", y = "Valeurs prédites",
-       title = expression("Graphique d'adéquation GP1 " ~ Q[2] == 95.16 *"%")) +
+  labs(x = "Vraies valeurs", y = "Valeurs prÃ©dites",
+       title = expression("Graphique d'adÃ©quation GP1 " ~ Q[2] == 95.16 *"%")) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
@@ -41,8 +41,8 @@ png(filename = "GadeqU2.png", width = 1200, height = 1200, res = 300)
 ggplot(data, aes(x = X, y = Y)) +
   geom_point(color = "blue", size = 1.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", size = 1.25) + # Trait plein sans linetype
-  labs(x = "Vraies valeurs", y = "Valeurs prédites",
-       title = expression("Graphique d'adéquation GP2 " ~ Q[2] == 88.48 *"%")) +
+  labs(x = "Vraies valeurs", y = "Valeurs prÃ©dites",
+       title = expression("Graphique d'adÃ©quation GP2 " ~ Q[2] == 88.48 *"%")) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
@@ -53,8 +53,8 @@ png(filename = "GadeqU3.png", width = 1200, height = 1200, res = 300)
 ggplot(data, aes(x = X, y = Y)) +
   geom_point(color = "blue", size = 1.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", size = 1.25) + # Trait plein sans linetype
-  labs(x = "Vraies valeurs", y = "Valeurs prédites",
-       title = expression("Graphique d'adéquation GP3 " ~ Q[2] == 72.85 *"%")) +
+  labs(x = "Vraies valeurs", y = "Valeurs prÃ©dites",
+       title = expression("Graphique d'adÃ©quation GP3 " ~ Q[2] == 72.85 *"%")) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
@@ -66,20 +66,20 @@ png(filename = "GadeqU4.png", width = 1200, height = 1200, res = 300)
 ggplot(data, aes(x = X, y = Y)) +
   geom_point(color = "blue", size = 1.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", size = 1.25) + # Trait plein sans linetype
-  labs(x = "Vraies valeurs", y = "Valeurs prédites",
-       title = expression("Graphique d'adéquation GP4 " ~ Q[2] == 66.85 *"%")) +
+  labs(x = "Vraies valeurs", y = "Valeurs prÃ©dites",
+       title = expression("Graphique d'adÃ©quation GP4 " ~ Q[2] == 66.85 *"%")) +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
 
-# Graphique des différences VRAIE- PREDICTION
-# Échantillonnage
+# Graphique des diffÃ©rences VRAIE- PREDICTION
+# Ã‰chantillonnage
 Df <- (FDpred - Mn)/FDpred
 set.seed(123)
 aa <- sample(1:nrow(Df), 100)
 Df <- Df[aa, ]
 
-# Conversion des données en un format long pour ggplot
+# Conversion des donnÃ©es en un format long pour ggplot
 df_long <- as.data.frame(Df) %>%
   mutate(ID = row_number()) %>%
   pivot_longer(-ID, names_to = "Time", values_to = "Difference") %>%
@@ -91,7 +91,7 @@ png(filename = "Diffadeq.png", width = 1920, height = 1200, res = 300)
 ggplot(df_long, aes(x = Time, y = Difference, group = ID, color = as.factor(ID))) +
   geom_line(size = 1) +
   scale_color_viridis_d(option = "plasma", guide = FALSE) +
-  labs(x = "Temps (h)", y = expression("Différence relative"),
+  labs(x = "Temps (h)", y = expression("DiffÃ©rence relative"),
        title = " ") +
   theme_bw() +
   theme(axis.title = element_text(size = 12),
@@ -99,7 +99,7 @@ ggplot(df_long, aes(x = Time, y = Difference, group = ID, color = as.factor(ID))
   ylim(-0.0665, 0.0225)
 dev.off()
 
-# Graphique d'adéquation
+# Graphique d'adÃ©quation
 FF <- as.vector(colMeans(FDpred))
 YY <- as.vector(colMeans(Mn))
 data <- data.frame(FF = FF, YY = YY)
@@ -108,8 +108,8 @@ png(filename = "Gadeq.png", width = 1920, height = 1100, res = 300)
 ggplot(data, aes(x = FF, y = YY)) +
   geom_point(color = "blue", size = 1.5) +
   geom_abline(slope = 1, intercept = 0, color = "red", size = 1.5) +
-  labs(x = "Simulations", y = "Prédictions",
-       title = "Graphique d'adéquation (Q2 = 82.43%)") +
+  labs(x = "Simulations", y = "PrÃ©dictions",
+       title = "Graphique d'adÃ©quation (Q2 = 82.43%)") +
   theme_bw() +
   theme(plot.title = element_text(hjust = 0.5))
 dev.off()
@@ -152,7 +152,7 @@ Qx2 =rep(0, Nx)
 for(i in 1:Nx){
   x = XX[i, ]
   Dpred = cbind(THETA, matrix(rep(x, 100), ncol=2, byrow = TRUE))
-  FDpred = 1e4*SimCorresp(Dpred, XX, THETA, Fsim, Nt=461)
+  FDpred = 1e5*SimCorresp(Dpred, XX, THETA, Fsim, Nt=461)
   YY = svdgppredict(model2, Dpred)
   Mn = YY$Mn
   Qx2[i] = 1 - (sum((FDpred - Mn)^ 2)/sum((FDpred - colMeans(FDpred))^2))
